@@ -10,7 +10,9 @@ public class MainActivity extends AppCompatActivity {
     int imgCartas [] = new int[]{R.drawable.bulbasur,
         R.drawable.charmeleon,
         R.drawable.charizard,
-        R.drawable.pikachu
+        R.drawable.pikachu,
+        R.drawable.wartortle,
+        R.drawable.blastoise
     };
     ImageButton btn_img1;
     ImageButton btn_img2;
@@ -63,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void crearTablero(){
+        for (int i = 0; i < imgBtns.length; i++){
+            imgBtns [i].setImageResource(R.drawable.cartadetras);
+        }
 
     }
 }

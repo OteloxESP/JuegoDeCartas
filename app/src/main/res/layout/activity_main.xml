@@ -17,7 +17,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/imgBtn1"
@@ -41,7 +41,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/imgBtn4"
@@ -65,31 +65,31 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/imgBtn7"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn8"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn9"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/imgBtn10"
