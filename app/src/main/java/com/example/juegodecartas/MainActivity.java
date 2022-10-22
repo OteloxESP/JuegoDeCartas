@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     int imgCartas [] = new int[]{R.drawable.bulbasur,
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     int comprobante = 0;
     int [] vigilante = new int[]{0,0};
     int [] btnPulsado = new int[]{0,0};
+    int parejasEncontradas = 0;
 
     ImageButton btn_img1;
     ImageButton btn_img2;
@@ -77,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         imgBtns [11] = findViewById(R.id.imgBtn12);
 
         crearTablero();
-
-
     }
 
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void asignarCartas1(){
+    public void asignarCartas1(){ //baraja las imagenes y se las asigna a los botones PARES cuando este es pulsado
         Random r = new Random();
         for (int i=0; i<n1.length; i++) {
             int posAleatoria = r.nextInt(n1.length);
@@ -110,13 +110,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     imgBtns[finalP].setImageResource(imgCartas[t]);
-                    //comprobante++;
                     comprobacion(t,finalP);
                 }
             });
         }
     }
-    public void asignarCartas2(){
+    public void asignarCartas2(){ //baraja las imagenes y se las asigna a los botones IMPARES cuando este es pulsado
         Random r = new Random();
         for (int i=0; i<n2.length; i++) {
             int posAleatoria = r.nextInt(n2.length);
@@ -133,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     imgBtns[finalP].setImageResource(imgCartas[t]);
-                    //comprobante++;
                     comprobacion(t,finalP);
                 }
             });
@@ -141,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void comprobacion(int imgAplicado, int btn){
-        vigilante[comprobante] = imgAplicado;
+        vigilante[comprobante] = imgAplicado; //guarda la imagen y el boton volteado
         btnPulsado[comprobante] = btn;
         if(comprobante == 1){
             if(vigilante[0] != vigilante[1]){
@@ -152,21 +150,34 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(e);
                 }
                  **/
+
                 noEsPareja(true);
 
+            }else{
+                parejasEncontradas++;
+                if(parejasEncontradas == 6){
+                    crearTablero(); //Vuelve a crear el tablero
+                    for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
+                        imgBtns[m].setEnabled(true);
+                    }
+                    parejasEncontradas=0;
+                }else{
+                    imgBtns[btnPulsado[0]].setEnabled(false); //Desactiva los dos botones que son pareja
+                    imgBtns[btnPulsado[1]].setEnabled(false);
+                }
             }
             comprobante = 0;
+
 
         }else{
             comprobante++;
         }
     }
 
-    public void noEsPareja(boolean v){
+    public void noEsPareja(boolean v){ //Volteara las dos cartas si no son parejas
         if(v){
             imgBtns[btnPulsado[0]].setImageResource(R.drawable.cartadetras);
             imgBtns[btnPulsado[1]].setImageResource(R.drawable.cartadetras);
-            Toast.makeText(getApplicationContext(),vigilante[0]+" y "+vigilante[1], Toast.LENGTH_SHORT).show();
         }
     }
 }
