@@ -3,8 +3,16 @@ package com.example.juegodecartas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     int imgCartas [] = new int[]{R.drawable.bulbasur,
@@ -14,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
         R.drawable.wartortle,
         R.drawable.blastoise
     };
+
+    int[] n1 = new int[]{0,1,2,3,4,5};
+    int[] n2 = new int[]{0,1,2,3,4,5};
+
     ImageButton btn_img1;
     ImageButton btn_img2;
     ImageButton btn_img3;
@@ -62,11 +74,66 @@ public class MainActivity extends AppCompatActivity {
         imgBtns [11] = findViewById(R.id.imgBtn12);
 
         crearTablero();
+
+
     }
+
+
 
     public void crearTablero(){
         for (int i = 0; i < imgBtns.length; i++){
             imgBtns [i].setImageResource(R.drawable.cartadetras);
+        }
+
+        asignarCartas1();
+        asignarCartas2();
+
+    }
+
+    public void asignarCartas1(){
+        Random r = new Random();
+        for (int i=0; i<n1.length; i++) {
+            int posAleatoria = r.nextInt(n1.length);
+            int temp = n1[i];
+            n1[i] = n1[posAleatoria];
+            n1[posAleatoria] = temp;
+        }
+        int x = 0;
+        for(int p = 0; p < 12; p=p+2){
+            int finalP = p;
+            int t = n1[x];
+            x++;
+            imgBtns[p].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Funciono perfectamente", Toast.LENGTH_SHORT).show();
+                    imgBtns[finalP].setImageResource(imgCartas[t]);
+
+                }
+            });
+        }
+    }
+    public void asignarCartas2(){
+        Random r = new Random();
+        for (int i=0; i<n2.length; i++) {
+            int posAleatoria = r.nextInt(n2.length);
+            int temp = n2[i];
+            n2[i] = n2[posAleatoria];
+            n2[posAleatoria] = temp;
+        }
+        int x = 0;
+        for(int p = 1; p < 12; p=p+2){
+            int finalP = p;
+            int t = n2[x];
+            x++;
+            imgBtns[p].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Funciono perfectamente", Toast.LENGTH_SHORT).show();
+                    imgBtns[finalP].setImageResource(imgCartas[t]);
+
+                }
+            });
         }
 
     }
