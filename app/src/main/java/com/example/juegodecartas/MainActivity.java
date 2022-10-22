@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     int[] n1 = new int[]{0,1,2,3,4,5};
     int[] n2 = new int[]{0,1,2,3,4,5};
+    int comprobante = 0;
+    int [] vigilante = new int[]{0,0};
+    int [] btnPulsado = new int[]{0,0};
 
     ImageButton btn_img1;
     ImageButton btn_img2;
@@ -106,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
             imgBtns[p].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"Funciono perfectamente", Toast.LENGTH_SHORT).show();
                     imgBtns[finalP].setImageResource(imgCartas[t]);
-
+                    //comprobante++;
+                    comprobacion(t,finalP);
                 }
             });
         }
@@ -129,12 +132,41 @@ public class MainActivity extends AppCompatActivity {
             imgBtns[p].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"Funciono perfectamente", Toast.LENGTH_SHORT).show();
                     imgBtns[finalP].setImageResource(imgCartas[t]);
-
+                    //comprobante++;
+                    comprobacion(t,finalP);
                 }
             });
         }
+    }
 
+    public void comprobacion(int imgAplicado, int btn){
+        vigilante[comprobante] = imgAplicado;
+        btnPulsado[comprobante] = btn;
+        if(comprobante == 1){
+            if(vigilante[0] != vigilante[1]){
+                /**
+                try {
+                    Thread.sleep(2*1000);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                 **/
+                noEsPareja(true);
+
+            }
+            comprobante = 0;
+
+        }else{
+            comprobante++;
+        }
+    }
+
+    public void noEsPareja(boolean v){
+        if(v){
+            imgBtns[btnPulsado[0]].setImageResource(R.drawable.cartadetras);
+            imgBtns[btnPulsado[1]].setImageResource(R.drawable.cartadetras);
+            Toast.makeText(getApplicationContext(),vigilante[0]+" y "+vigilante[1], Toast.LENGTH_SHORT).show();
+        }
     }
 }
