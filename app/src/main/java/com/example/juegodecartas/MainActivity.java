@@ -73,97 +73,74 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < imgBtns.length; i++){
             imgBtns [i].setImageResource(R.drawable.cartadetras);
         }
-        asignarCartas1();
-        asignarCartas2();
+        asignarCartas1("pares");
+        asignarCartas1("impares");
     }
 
-    public void asignarCartas1(){ //baraja las imagenes y se las asigna a los botones PARES cuando este es pulsado
+    public void asignarCartas1(String posiciones){ //baraja las imagenes y se las asigna a los botones cuando este es pulsado
         Random r = new Random();
-        for (int i=0; i<n1.length; i++) {
-            int posAleatoria = r.nextInt(n1.length);
-            int temp = n1[i];
-            n1[i] = n1[posAleatoria];
-            n1[posAleatoria] = temp;
-        }
         int x = 0;
-        for(int p = 0; p < 12; p=p+2){
-            int finalP = p;
-            int t = n1[x];
-            x++;
-            imgBtns[p].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    imgBtns[finalP].setImageResource(imgCartas[t]);
-                    comprobacion(t,finalP);
-                }
-            });
+        if (posiciones == "pares"){
+            for (int i=0; i<n1.length; i++) {
+                int posAleatoria = r.nextInt(n1.length);
+                int temp = n1[i];
+                n1[i] = n1[posAleatoria];
+                n1[posAleatoria] = temp;
+            }
+            for(int p = 0; p < 12; p=p+2){
+                int finalP = p;
+                int t = n1[x];
+                x++;
+                imgBtns[p].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        imgBtns[finalP].setImageResource(imgCartas[t]);
+                        comprobacion(t,finalP);
+                    }
+                });
+            }
+        }else if (posiciones == "impares"){
+            for (int i=0; i<n2.length; i++) {
+                int posAleatoria = r.nextInt(n2.length);
+                int temp = n2[i];
+                n2[i] = n2[posAleatoria];
+                n2[posAleatoria] = temp;
+            }
+            for(int p = 1; p < 12; p=p+2){
+                int finalP = p;
+                int t = n2[x];
+                x++;
+                imgBtns[p].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        imgBtns[finalP].setImageResource(imgCartas[t]);
+                        comprobacion(t,finalP);
+                    }
+                });
+            }
         }
-    }
-    public void asignarCartas2(){ //baraja las imagenes y se las asigna a los botones IMPARES cuando este es pulsado
-        Random r = new Random();
-        for (int i=0; i<n2.length; i++) {
-            int posAleatoria = r.nextInt(n2.length);
-            int temp = n2[i];
-            n2[i] = n2[posAleatoria];
-            n2[posAleatoria] = temp;
-        }
-        int x = 0;
-        for(int p = 1; p < 12; p=p+2){
-            int finalP = p;
-            int t = n2[x];
-            x++;
-            imgBtns[p].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    imgBtns[finalP].setImageResource(imgCartas[t]);
-                    comprobacion(t,finalP);
-                }
-            });
-        }
+
     }
 
     public void comprobacion(int imgAplicado, int btn){
         imgID[comprobante] = imgAplicado; //guarda la imagen y el boton volteado
         btnPulsado[comprobante] = btn;
-        imgBtns[btnPulsado[comprobante]].setEnabled(false);
+        imgBtns[btnPulsado[comprobante]].setEnabled(false); //desactiva el boton pulsado para evitar problemas
 
         if(comprobante == 1){
             if(imgID[0] != imgID[1]){
                 for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
                     imgBtns[m].setEnabled(false);
                 }
-                new CountDownTimer(800, 800) {
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    public void onFinish() {
-                        noEsPareja(true);
-                        for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
-                            imgBtns[m].setEnabled(true);
-                        }
-                    }
-                }.start();
+                tiempoEspera(800, true);
 
             }else{
                 parejasEncontradas++;
                 totalParejas++;
                 actualizarContadorParejas();
                 if(parejasEncontradas == 6){
-                    new CountDownTimer(800, 800) {
-                        public void onTick(long millisUntilFinished) {
-
-                        }
-
-                        public void onFinish() {
-                            crearTablero(); //Vuelve a crear el tablero
-                            for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
-                                imgBtns[m].setEnabled(true);
-                                parejasEncontradas=0;
-                            }
-                        }
-                    }.start();
-
+                    tiempoEspera(800, false);
+                    parejasEncontradas=0;
                 }else{
                     imgBtns[btnPulsado[0]].setEnabled(false); //Desactiva los dos botones que son pareja
                     imgBtns[btnPulsado[1]].setEnabled(false);
@@ -219,5 +196,20 @@ public class MainActivity extends AppCompatActivity {
     public void actualizarContadorVidas(){
         String texto = getResources().getString(R.string.txtVidas);
         txtVidasRestantes.setText(texto+" "+vidasRestantes);
+    }
+
+    public void tiempoEspera(int milis, boolean b){
+        new CountDownTimer(milis, milis) {
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                noEsPareja(true);
+                for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
+                    imgBtns[m].setEnabled(true);
+                }
+            }
+        }.start();
     }
 }

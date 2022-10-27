@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JuegoDeCartas</string>
+    <string name="app_name">Juego de cartas</string>
     <string name="opcion1">Reiniciar juego</string>
     <string name="txtParejasDefecto">Parejas encontradas: 0</string>
     <string name="txtParejas">Parejas encontradas: </string>
