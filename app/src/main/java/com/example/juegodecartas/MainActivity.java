@@ -3,17 +3,10 @@ package com.example.juegodecartas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     int imgCartas [] = new int[]{R.drawable.bulbasur,
@@ -27,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     int[] n1 = new int[]{0,1,2,3,4,5};
     int[] n2 = new int[]{0,1,2,3,4,5};
     int comprobante = 0;
-    int [] vigilante = new int[]{0,0};
-    int [] btnPulsado = new int[]{0,0};
+    int [] vigilante = new int[]{0,0,0};
+    int [] btnPulsado = new int[]{0,0,0};
     int parejasEncontradas = 0;
 
     ImageButton btn_img1;
@@ -141,9 +134,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(comprobante == 1){
             if(vigilante[0] != vigilante[1]){
-                noEsPareja(true);
-                imgBtns[btnPulsado[0]].setEnabled(true);
-                imgBtns[btnPulsado[1]].setEnabled(true);
+                for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
+                    imgBtns[m].setEnabled(false);
+                }
+                new CountDownTimer(800, 800) {
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    public void onFinish() {
+                        noEsPareja(true);
+                        for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
+                            imgBtns[m].setEnabled(true);
+                        }
+                    }
+                }.start();
+
 
             }else{
                 parejasEncontradas++;
