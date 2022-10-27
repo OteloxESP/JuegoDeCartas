@@ -81,16 +81,12 @@ public class MainActivity extends AppCompatActivity {
         crearTablero();
     }
 
-
-
     public void crearTablero(){
         for (int i = 0; i < imgBtns.length; i++){
             imgBtns [i].setImageResource(R.drawable.cartadetras);
         }
-
         asignarCartas1();
         asignarCartas2();
-
     }
 
     public void asignarCartas1(){ //baraja las imagenes y se las asigna a los botones PARES cuando este es pulsado
@@ -141,17 +137,13 @@ public class MainActivity extends AppCompatActivity {
     public void comprobacion(int imgAplicado, int btn){
         vigilante[comprobante] = imgAplicado; //guarda la imagen y el boton volteado
         btnPulsado[comprobante] = btn;
+        imgBtns[btnPulsado[comprobante]].setEnabled(false);
+
         if(comprobante == 1){
             if(vigilante[0] != vigilante[1]){
-                /**
-                try {
-                    Thread.sleep(2*1000);
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                 **/
-
                 noEsPareja(true);
+                imgBtns[btnPulsado[0]].setEnabled(true);
+                imgBtns[btnPulsado[1]].setEnabled(true);
 
             }else{
                 parejasEncontradas++;
@@ -167,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             comprobante = 0;
-
-
         }else{
             comprobante++;
         }
