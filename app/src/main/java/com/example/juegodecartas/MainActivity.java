@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     int[] n1 = new int[]{0,1,2,3,4,5};
     int[] n2 = new int[]{0,1,2,3,4,5};
     int comprobante = 0;
-    int [] vigilante = new int[]{0,0,0};
+    int [] imgID = new int[]{0,0,0};
     int [] btnPulsado = new int[]{0,0,0};
     int parejasEncontradas = 0;
 
@@ -128,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void comprobacion(int imgAplicado, int btn){
-        vigilante[comprobante] = imgAplicado; //guarda la imagen y el boton volteado
+        imgID[comprobante] = imgAplicado; //guarda la imagen y el boton volteado
         btnPulsado[comprobante] = btn;
         imgBtns[btnPulsado[comprobante]].setEnabled(false);
 
         if(comprobante == 1){
-            if(vigilante[0] != vigilante[1]){
+            if(imgID[0] != imgID[1]){
                 for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
                     imgBtns[m].setEnabled(false);
                 }
@@ -150,15 +150,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }.start();
 
-
             }else{
                 parejasEncontradas++;
                 if(parejasEncontradas == 6){
-                    crearTablero(); //Vuelve a crear el tablero
-                    for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
-                        imgBtns[m].setEnabled(true);
-                    }
-                    parejasEncontradas=0;
+                    new CountDownTimer(800, 800) {
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        public void onFinish() {
+                            crearTablero(); //Vuelve a crear el tablero
+                            for (int m = 0; m < imgBtns.length; m++){ //Vuelve a activar todos los botones
+                                imgBtns[m].setEnabled(true);
+                                parejasEncontradas=0;
+                            }
+                        }
+                    }.start();
+
                 }else{
                     imgBtns[btnPulsado[0]].setEnabled(false); //Desactiva los dos botones que son pareja
                     imgBtns[btnPulsado[1]].setEnabled(false);
