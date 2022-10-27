@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="320dp"
         android:layout_height="500dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,19 +24,19 @@
                 android:id="@+id/imgBtn1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
         </TableRow>
 
         <TableRow
@@ -47,19 +48,19 @@
                 android:id="@+id/imgBtn4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
         </TableRow>
 
         <TableRow
@@ -95,20 +96,43 @@
                 android:id="@+id/imgBtn10"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn11"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
 
             <ImageButton
                 android:id="@+id/imgBtn12"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/bulbasur"/>
+                android:src="@drawable/bulbasur" />
         </TableRow>
 
     </TableLayout>
+
+    <TextView
+        android:id="@+id/txtPuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtParejasDefecto"
+        app:layout_constraintBottom_toTopOf="@+id/txtVidasResta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.754" />
+
+    <TextView
+        android:id="@+id/txtVidasResta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/txtVidasDefecto"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">JuegoDeCartas</string>
+    <string name="opcion1">Reiniciar juego</string>
+    <string name="txtParejasDefecto">Parejas encontradas: 0</string>
+    <string name="txtParejas">Parejas encontradas: </string>
+    <string name="txtVidasDefecto">Vidas restantes: 5</string>
+    <string name="txtVidas">Vidas restantes:</string>
 </resources>

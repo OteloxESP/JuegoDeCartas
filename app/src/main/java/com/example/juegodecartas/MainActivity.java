@@ -1,11 +1,20 @@
 package com.example.juegodecartas;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,35 +32,18 @@ public class MainActivity extends AppCompatActivity {
     int [] imgID = new int[]{0,0,0};
     int [] btnPulsado = new int[]{0,0,0};
     int parejasEncontradas = 0;
+    int totalParejas = 0;
+    int vidasRestantes = 5;
 
-    ImageButton btn_img1;
-    ImageButton btn_img2;
-    ImageButton btn_img3;
-    ImageButton btn_img4;
-    ImageButton btn_img5;
-    ImageButton btn_img6;
-    ImageButton btn_img7;
-    ImageButton btn_img8;
-    ImageButton btn_img9;
-    ImageButton btn_img10;
-    ImageButton btn_img11;
-    ImageButton btn_img12;
+    ImageButton btn_img1, btn_img2, btn_img3, btn_img4, btn_img5, btn_img6,
+            btn_img7, btn_img8, btn_img9,btn_img10,btn_img11,btn_img12;
 
     ImageButton imgBtns [] = new ImageButton[]{
-            btn_img1,
-            btn_img2,
-            btn_img3,
-            btn_img4,
-            btn_img5,
-            btn_img6,
-            btn_img7,
-            btn_img8,
-            btn_img9,
-            btn_img10,
-            btn_img11,
-            btn_img12
+            btn_img1, btn_img2, btn_img3, btn_img4, btn_img5, btn_img6,
+            btn_img7, btn_img8, btn_img9, btn_img10, btn_img11, btn_img12
     };
 
+    TextView txtVidasRestantes,txtTotalParejas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         imgBtns [9] = findViewById(R.id.imgBtn10);
         imgBtns [10] = findViewById(R.id.imgBtn11);
         imgBtns [11] = findViewById(R.id.imgBtn12);
+
+        txtVidasRestantes = findViewById(R.id.txtVidasResta);
+        txtTotalParejas = findViewById(R.id.txtPuntuacion);
 
         crearTablero();
     }
@@ -152,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
             }else{
                 parejasEncontradas++;
+                totalParejas++;
+                actualizarContadorParejas();
                 if(parejasEncontradas == 6){
                     new CountDownTimer(800, 800) {
                         public void onTick(long millisUntilFinished) {
@@ -180,8 +177,47 @@ public class MainActivity extends AppCompatActivity {
 
     public void noEsPareja(boolean v){ //Volteara las dos cartas si no son parejas
         if(v){
+            vidasRestantes--;
+            if (vidasRestantes==0){
+                Toast.makeText(this, "Has perdido :(", Toast.LENGTH_LONG).show();
+                crearTablero();
+                vidasRestantes = 5;
+                totalParejas = 0;
+                actualizarContadorParejas();
+            }
+            actualizarContadorVidas();
             imgBtns[btnPulsado[0]].setImageResource(R.drawable.cartadetras);
             imgBtns[btnPulsado[1]].setImageResource(R.drawable.cartadetras);
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mItem1:
+                vidasRestantes = 5;
+                totalParejas = 0;
+                actualizarContadorParejas();
+                actualizarContadorVidas();
+                crearTablero();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void actualizarContadorParejas(){
+        String texto = getResources().getString(R.string.txtParejas);
+        txtTotalParejas.setText(texto+" "+totalParejas);
+    }
+
+    public void actualizarContadorVidas(){
+        String texto = getResources().getString(R.string.txtVidas);
+        txtVidasRestantes.setText(texto+" "+vidasRestantes);
     }
 }
