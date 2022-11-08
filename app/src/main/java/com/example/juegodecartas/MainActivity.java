@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,21 +34,12 @@ public class MainActivity extends AppCompatActivity {
     int totalParejas = 0;
     int vidasRestantes = 7;
 
-    ImageButton btn_img1,btn_img2,btn_img3,btn_img4,btn_img5,btn_img6,btn_img7,btn_img8,btn_img9,btn_img10,btn_img11,btn_img12;
+    ImageButton btn_img1,btn_img2,btn_img3,btn_img4,btn_img5,btn_img6,
+            btn_img7,btn_img8,btn_img9,btn_img10,btn_img11,btn_img12;
 
     ImageButton imgBtns [] = new ImageButton[]{
-            btn_img1,
-            btn_img2,
-            btn_img3,
-            btn_img4,
-            btn_img5,
-            btn_img6,
-            btn_img7,
-            btn_img8,
-            btn_img9,
-            btn_img10,
-            btn_img11,
-            btn_img12
+            btn_img1,btn_img2,btn_img3,btn_img4,btn_img5,btn_img6,
+            btn_img7, btn_img8, btn_img9, btn_img10, btn_img11, btn_img12
     };
     TextView txtVidasRestantes,txtTotalParejas;
 
@@ -54,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle bundle = getIntent().getExtras();
+        String usuario = bundle.getString("usuario");
+        TextView txtUsuario = findViewById(R.id.txtUsuario);
+        txtUsuario.setText(usuario);
 
         imgBtns [0] = findViewById(R.id.imgBtn1);
         imgBtns [1] = findViewById(R.id.imgBtn2);
